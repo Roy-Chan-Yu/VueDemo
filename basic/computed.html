@@ -159,6 +159,11 @@ var app = new Vue({
     text: '',
     newText: ''
   },
+  computed: {
+    reverseText: function () {
+      return this.text.split('').reverse().join('') ;
+    }
+  }
   // 請在此撰寫 JavaScript
 });
 </script>
