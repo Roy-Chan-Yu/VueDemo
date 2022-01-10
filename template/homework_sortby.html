@@ -119,16 +119,21 @@
     <thead>
       <tr>
         <th>品名</th>
-        <th class="click">價格 
+        <th class="click" @click="changeType('price')">價格 
           <!-- isReverse 為反轉 className -->
-          <span class="icon isReverse">
+          <span class="icon isReverse" :class="{'inverse': isReverse}"
+                v-if="sortType == 'price' ">
             <i class=" fas fa-angle-up text-success"></i>
           </span>
         </th>
-        <th class="click">到期日 
+        <th class="click" @click="changeType('expiryDate')">到期日 
+          <span class="icon" :class="{'inverse': isReverse}"
+                v-if="sortType == 'expiryDate' ">
+            <i class=" fas fa-angle-up text-success"></i>
+          </span>
         </th>
       </tr>
-      <tr v-for="item in data">
+      <tr v-for="item in sortData" :key="item.price">
         <td>{{ item.name }}</td>
         <td>{{ item.price }}</td>
         <td>{{ item.expiryDate }}</td>
@@ -180,9 +185,35 @@ var app = new Vue({
         expiryDate: 200
       }
     ],
+    sortType: "price",
+    isReverse: false
   },
-  // 請在此撰寫 JavaScript
-  computed: {}
+  methods: {
+    changeType: function(type) {
+      var vm = this;
+      if (vm.sortType == type) {
+        vm.isReverse = !vm.isReverse;
+      } else {
+        vm.isReverse = false;
+      }
+
+      vm.sortType = type;
+
+    }
+  },
+  computed: {
+    sortData() {
+      var vm = this;
+      var type = vm.sortType;
+      return vm.data.sort(function (a, b) {
+        if (vm.isReverse) {
+          return b[type] - a[type];
+        } else {
+          return a[type] - b[type];
+        }
+      });
+    }
+  }
 });
 </script>
 
