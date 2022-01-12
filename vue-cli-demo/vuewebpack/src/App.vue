@@ -1,49 +1,47 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-      <h1 class="card-title">Card title</h1>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+    <!-- <HelloWorld/> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <router-link class="nav-link" to="/index">Home</router-link>
+            </li>
+            <li class="nav-item">
+              <!-- <router-link class="nav-link" :to="{name: '首頁'}">Home</router-link> -->
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/page">Page</router-link>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    
-  </div>
+    </nav>
+    <img src="./assets/logo.png" alt="..." />
+    <router-view name="menu"></router-view>
+    <div class="container">
+      <router-view></router-view>
+    </div>  
 
-  
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import HelloWorld from "./components/HelloWorld";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    HelloWorld,
   },
   created() {
-    this.$http.get('https://randomuser.me/api/')
-      .then((response) => {
-        console.log(response.data);
-      });
-  }
-}
+    this.$http.get("https://randomuser.me/api/").then((response) => {
+      console.log(response.data);
+    });
+  },
+};
 </script>
 
-<style lang="scss">
-@import "node_modules/bootstrap/scss/bootstrap";
-// $color: black;
-// body {
-//   background-color: $color ;
-// }
-// #app {
-//   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-//   margin-top: 60px;
-// }
-</style>
+
